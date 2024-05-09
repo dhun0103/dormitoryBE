@@ -19,11 +19,11 @@ public class LoginService {
         Member member = new Member(memberReqDto);
         memberRepository.save(member);
 
-        return GlobalResDto.success(null, "회원가입 완료");
+        return GlobalResDto.success(null, "success signup");
     }
     @Transactional
     public GlobalResDto<?> login(MemberReqDto memberReqDto) {
 
-        return GlobalResDto.success(null, "로그인 완료");
+        return GlobalResDto.success(null, "success login");
     }
 }
