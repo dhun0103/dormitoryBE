@@ -5,9 +5,7 @@ import com.example.dormitorybe.dto.ReqDto.MemberReqDto;
 import com.example.dormitorybe.dto.ResDto.GlobalResDto;
 import com.example.dormitorybe.service.MatePostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,5 +17,12 @@ public class MatePostController {
     public GlobalResDto<?> createMatePost(@RequestBody MatePostReqDto matePostReqDto){
 
         return matePostService.createMatePost(matePostReqDto);
+    }
+
+    @PutMapping("/mate-posts")
+    public GlobalResDto<?> updateMatePost(@RequestBody MatePostReqDto matePostReqDto,
+                                          @PathVariable Long matePostId){
+
+        return matePostService.updateMatePost(matePostReqDto);
     }
 }

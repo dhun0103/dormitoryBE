@@ -81,4 +81,29 @@ public class MatePost {
         this.homeProtector = matePostReqDto.getHomeProtector();
         this.gameAndCall = matePostReqDto.getGameAndCall();
     }
+
+    public void updateMatePost(MatePostReqDto matePostReqDto){
+        this.title=matePostReqDto.getTitle();
+        this.contents = matePostReqDto.getContents();
+        this.gender = matePostReqDto.getGender();
+        this.age = matePostReqDto.getAge();
+        this.mbti = matePostReqDto.getMbti();
+        this.wakeUpStart = matePostReqDto.getWakeUpStart();
+        this.wakeUpEnd = matePostReqDto.getWakeUpEnd();
+        this.sleepStart = matePostReqDto.getSleepStart();
+        this.sleepEnd = matePostReqDto.getSleepEnd();
+        this.showerStart = matePostReqDto.getShowerStart();
+        this.showerEnd = matePostReqDto.getShowerEnd();
+        this.dayOfWeek = matePostReqDto.getDayOfWeek();
+        this.snoring = matePostReqDto.getSnoring();
+        this.noiseSense = matePostReqDto.getNoiseSense();
+        this.light = matePostReqDto.getLight();
+        this.noisiness = matePostReqDto.getNoisiness();
+        this.smoking = matePostReqDto.getSmoking();
+        this.personalTime = matePostReqDto.getPersonalTime();
+        this.familiarity = matePostReqDto.getFamiliarity();
+        this.deliveryFood = matePostReqDto.getDeliveryFood();
+        this.homeProtector = matePostReqDto.getHomeProtector();
+        this.gameAndCall = matePostReqDto.getGameAndCall();
+    }
 }

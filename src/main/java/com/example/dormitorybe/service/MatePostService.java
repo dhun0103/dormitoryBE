@@ -3,6 +3,8 @@ package com.example.dormitorybe.service;
 import com.example.dormitorybe.domain.MatePost;
 import com.example.dormitorybe.dto.ReqDto.MatePostReqDto;
 import com.example.dormitorybe.dto.ResDto.GlobalResDto;
+import com.example.dormitorybe.exception.CustomException;
+import com.example.dormitorybe.exception.ErrorCode;
 import com.example.dormitorybe.repository.MatePostRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -23,5 +25,17 @@ public class MatePostService {
         matePostRepository.save(matePost);
 
         return GlobalResDto.success(null, "success create matePost");
+    }
+
+    public GlobalResDto<?> updateMatePost(MatePostReqDto matePostReqDto, Long matePostId) {
+
+        MatePost matePost = matePostRepository.findById(matePostId)
+                .orElseThrow(
+                        () -> new CustomException(ErrorCode.NotFoundPost)
+                );
+
+        matePost.updateMatePost(matePostReqDto);
+
+        return GlobalResDto.success(null, "success update matePost");
     }
 }
