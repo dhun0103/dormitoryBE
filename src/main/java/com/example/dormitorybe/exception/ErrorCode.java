@@ -8,11 +8,11 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErrorCode {
 
-    NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND.value(), "M001", "유저가 존재하지 않습니다."),
-    DELETED_USER_EXCEPTION(HttpStatus.BAD_REQUEST.value(), "M002", "이미 탈퇴한 계정입니다.\n다른 계정으로 시도해 주세요."),
-    NOT_MATCH_MEMBER(HttpStatus.BAD_REQUEST.value(), "M003", "작성자가 일치하지 않습니다."),
+//    NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND.value(), "M001", "유저가 존재하지 않습니다."),
+//    DELETED_USER_EXCEPTION(HttpStatus.BAD_REQUEST.value(), "M002", "이미 탈퇴한 계정입니다.\n다른 계정으로 시도해 주세요."),
+//    NOT_MATCH_MEMBER(HttpStatus.BAD_REQUEST.value(), "M003", "작성자가 일치하지 않습니다."),
 
-    ERROR(HttpStatus.NO_CONTENT.value(), "S001", "알수업는오류");
+    ERROR(HttpStatus.NO_CONTENT.value(), "S001", "알수없는오류");
 
 
     private final int status;
