@@ -23,6 +23,6 @@ public class MatePostController {
     public GlobalResDto<?> updateMatePost(@RequestBody MatePostReqDto matePostReqDto,
                                           @PathVariable Long matePostId){
 
-        return matePostService.updateMatePost(matePostReqDto);
+        return matePostService.updateMatePost(matePostReqDto, matePostId);
     }
 }
