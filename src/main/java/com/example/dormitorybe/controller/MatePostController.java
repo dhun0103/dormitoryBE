@@ -1,7 +1,6 @@
 package com.example.dormitorybe.controller;
 
 import com.example.dormitorybe.dto.ReqDto.MatePostReqDto;
-import com.example.dormitorybe.dto.ReqDto.MemberReqDto;
 import com.example.dormitorybe.dto.ResDto.GlobalResDto;
 import com.example.dormitorybe.service.MatePostService;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +18,16 @@ public class MatePostController {
         return matePostService.createMatePost(matePostReqDto);
     }
 
-    @PutMapping("/mate-posts")
+    @PutMapping("/mate-posts/{matePostId}")
     public GlobalResDto<?> updateMatePost(@RequestBody MatePostReqDto matePostReqDto,
                                           @PathVariable Long matePostId){
 
         return matePostService.updateMatePost(matePostReqDto, matePostId);
+    }
+
+    @DeleteMapping("/mate-posts/{matePostId}")
+    public GlobalResDto<?> deleteMatePost(@PathVariable Long matePostId){
+
+        return matePostService.deleteMatePost(matePostId);
     }
 }

@@ -38,4 +38,16 @@ public class MatePostService {
 
         return GlobalResDto.success(null, "success update matePost");
     }
+
+    public GlobalResDto<?> deleteMatePost(Long matePostId) {
+
+        MatePost matePost = matePostRepository.findById(matePostId)
+                .orElseThrow(
+                        () -> new CustomException(ErrorCode.NotFoundPost)
+                );
+
+        matePostRepository.deleteById(matePostId);
+
+        return GlobalResDto.success(null, "success delete matePost");
+    }
 }
