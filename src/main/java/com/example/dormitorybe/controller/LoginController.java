@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/member")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:5173")
 public class LoginController {
 
     private final LoginService loginService;
