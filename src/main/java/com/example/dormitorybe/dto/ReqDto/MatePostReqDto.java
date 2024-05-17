@@ -59,7 +59,7 @@ public class MatePostReqDto {
     int noisiness;
 
     @Column(nullable = false)
-    Boolean smoking;
+    String smoking;
 
     @Column(nullable = false)
     int personalTime;

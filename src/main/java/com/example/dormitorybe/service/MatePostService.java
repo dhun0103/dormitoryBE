@@ -21,10 +21,15 @@ public class MatePostService {
     @Transactional
     public GlobalResDto<?> createMatePost(MatePostReqDto matePostReqDto) {
 
-        MatePost matePost = new MatePost(matePostReqDto);
-        matePostRepository.save(matePost);
+        try{
+            MatePost matePost = new MatePost(matePostReqDto);
+            matePostRepository.save(matePost);
 
-        return GlobalResDto.success(null, "success create matePost");
+            return GlobalResDto.success(null, "success create matePost");
+        }catch (Exception e){
+            logger.error("Failed to create MatePost", e);
+            return GlobalResDto.fail("Failed to create MatePost");
+        }
     }
 
     public GlobalResDto<?> updateMatePost(MatePostReqDto matePostReqDto, Long matePostId) {

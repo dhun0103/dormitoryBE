@@ -45,7 +45,7 @@ public class MatePost {
     @Column(nullable = false)
     int noisiness;
     @Column(nullable = false)
-    Boolean smoking;
+    String smoking;
     @Column(nullable = false)
     int personalTime;
     @Column(nullable = false)
