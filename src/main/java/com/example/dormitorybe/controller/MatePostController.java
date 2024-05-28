@@ -30,4 +30,16 @@ public class MatePostController {
 
         return matePostService.deleteMatePost(matePostId);
     }
+
+    @GetMapping("/mate-posts/allposts")
+    public GlobalResDto<?> getAllMatePost(){
+
+        return matePostService.getAllMatePost();
+    }
+
+    @GetMapping("/mate-posts/{matePostId}")
+    public GlobalResDto<?> getMatePost(@PathVariable Long matePostId){
+
+        return matePostService.getMatePost(matePostId);
+    }
 }

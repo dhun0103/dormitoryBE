@@ -47,32 +47,20 @@ public class MatePostReqDto {
     String dayOfWeek;
 
     @Column(nullable = false)
-    String snoring;
-
-    @Column(nullable = false)
-    int noiseSense;
-
-    @Column(nullable = false)
-    int light;
-
-    @Column(nullable = false)
-    int noisiness;
-
-    @Column(nullable = false)
     String smoking;
-
-    @Column(nullable = false)
-    int personalTime;
-
-    @Column(nullable = false)
-    int familiarity;
 
     @Column(nullable = false)
     int deliveryFood;
 
     @Column(nullable = false)
+    int gameAndCall;
+
+    @Column(nullable = false)
     int homeProtector;
 
     @Column(nullable = false)
-    int gameAndCall;
+    int cleaning;
+
+    @Column(nullable = false)
+    int killBug;
 }

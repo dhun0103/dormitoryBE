@@ -37,25 +37,17 @@ public class MatePost {
     @Column(nullable = false)
     String dayOfWeek;
     @Column(nullable = false)
-    String snoring;
-    @Column(nullable = false)
-    int noiseSense;
-    @Column(nullable = false)
-    int light;
-    @Column(nullable = false)
-    int noisiness;
-    @Column(nullable = false)
     String smoking;
-    @Column(nullable = false)
-    int personalTime;
-    @Column(nullable = false)
-    int familiarity;
     @Column(nullable = false)
     int deliveryFood;
     @Column(nullable = false)
+    int gameAndCall;
+    @Column(nullable = false)
     int homeProtector;
     @Column(nullable = false)
-    int gameAndCall;
+    int cleaning;
+    @Column(nullable = false)
+    int killBug;
 
     public MatePost(MatePostReqDto matePostReqDto){
         this.title=matePostReqDto.getTitle();
@@ -70,16 +62,12 @@ public class MatePost {
         this.showerStart = matePostReqDto.getShowerStart();
         this.showerEnd = matePostReqDto.getShowerEnd();
         this.dayOfWeek = matePostReqDto.getDayOfWeek();
-        this.snoring = matePostReqDto.getSnoring();
-        this.noiseSense = matePostReqDto.getNoiseSense();
-        this.light = matePostReqDto.getLight();
-        this.noisiness = matePostReqDto.getNoisiness();
         this.smoking = matePostReqDto.getSmoking();
-        this.personalTime = matePostReqDto.getPersonalTime();
-        this.familiarity = matePostReqDto.getFamiliarity();
         this.deliveryFood = matePostReqDto.getDeliveryFood();
-        this.homeProtector = matePostReqDto.getHomeProtector();
         this.gameAndCall = matePostReqDto.getGameAndCall();
+        this.homeProtector = matePostReqDto.getHomeProtector();
+        this.cleaning = matePostReqDto.getCleaning();
+        this.killBug = matePostReqDto.getKillBug();
     }
 
     public void updateMatePost(MatePostReqDto matePostReqDto){
@@ -95,15 +83,11 @@ public class MatePost {
         this.showerStart = matePostReqDto.getShowerStart();
         this.showerEnd = matePostReqDto.getShowerEnd();
         this.dayOfWeek = matePostReqDto.getDayOfWeek();
-        this.snoring = matePostReqDto.getSnoring();
-        this.noiseSense = matePostReqDto.getNoiseSense();
-        this.light = matePostReqDto.getLight();
-        this.noisiness = matePostReqDto.getNoisiness();
         this.smoking = matePostReqDto.getSmoking();
-        this.personalTime = matePostReqDto.getPersonalTime();
-        this.familiarity = matePostReqDto.getFamiliarity();
         this.deliveryFood = matePostReqDto.getDeliveryFood();
-        this.homeProtector = matePostReqDto.getHomeProtector();
         this.gameAndCall = matePostReqDto.getGameAndCall();
+        this.homeProtector = matePostReqDto.getHomeProtector();
+        this.cleaning = matePostReqDto.getCleaning();
+        this.killBug = matePostReqDto.getKillBug();
     }
 }
