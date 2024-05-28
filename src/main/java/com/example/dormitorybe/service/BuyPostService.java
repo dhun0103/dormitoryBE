@@ -2,11 +2,9 @@ package com.example.dormitorybe.service;
 
 
 import com.example.dormitorybe.domain.BuyPost;
-import com.example.dormitorybe.domain.MatePost;
 import com.example.dormitorybe.dto.ReqDto.BuyPostReqDto;
 import com.example.dormitorybe.dto.ResDto.BuyPostResDto;
 import com.example.dormitorybe.dto.ResDto.GlobalResDto;
-import com.example.dormitorybe.dto.ResDto.MatePostResDto;
 import com.example.dormitorybe.exception.CustomException;
 import com.example.dormitorybe.exception.ErrorCode;
 import com.example.dormitorybe.repository.BuyPostRepository;
@@ -40,7 +38,7 @@ public class BuyPostService {
 
         BuyPost buyPost = buyPostRepository.findById(buyPostId)
                 .orElseThrow(
-                        () -> new CustomException(ErrorCode.NotFoundPost)
+                        () -> new CustomException(ErrorCode.NOT_FOUND_POST)
                 );
 
         buyPost.updateBuyPost(buyPostReqDto);
@@ -52,7 +50,7 @@ public class BuyPostService {
 
         BuyPost buyPost = buyPostRepository.findById(buyPostId)
                 .orElseThrow(
-                        () -> new CustomException(ErrorCode.NotFoundPost)
+                        () -> new CustomException(ErrorCode.NOT_FOUND_POST)
                 );
 
         buyPostRepository.deleteById(buyPostId);

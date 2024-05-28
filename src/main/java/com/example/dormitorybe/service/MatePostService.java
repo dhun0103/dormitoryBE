@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,7 +40,7 @@ public class MatePostService {
 
         MatePost matePost = matePostRepository.findById(matePostId)
                 .orElseThrow(
-                        () -> new CustomException(ErrorCode.NotFoundPost)
+                        () -> new CustomException(ErrorCode.NOT_FOUND_POST)
                 );
 
         matePost.updateMatePost(matePostReqDto);
@@ -53,7 +52,7 @@ public class MatePostService {
 
         MatePost matePost = matePostRepository.findById(matePostId)
                 .orElseThrow(
-                        () -> new CustomException(ErrorCode.NotFoundPost)
+                        () -> new CustomException(ErrorCode.NOT_FOUND_POST)
                 );
 
         matePostRepository.deleteById(matePostId);
@@ -76,7 +75,7 @@ public class MatePostService {
 
         MatePost matePost = matePostRepository.findById(matePostId)
                 .orElseThrow(
-                        () -> new CustomException(ErrorCode.NotFoundPost)
+                        () -> new CustomException(ErrorCode.NOT_FOUND_POST)
                 );
 
         return GlobalResDto.success(matePost, "success check matePost");

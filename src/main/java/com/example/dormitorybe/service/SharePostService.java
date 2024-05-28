@@ -1,13 +1,10 @@
 package com.example.dormitorybe.service;
 
-import com.example.dormitorybe.domain.BuyPost;
 import com.example.dormitorybe.domain.SharePost;
-import com.example.dormitorybe.dto.ReqDto.BuyPostReqDto;
 import com.example.dormitorybe.dto.ReqDto.SharePostReqDto;
 import com.example.dormitorybe.dto.ResDto.GlobalResDto;
 import com.example.dormitorybe.exception.CustomException;
 import com.example.dormitorybe.exception.ErrorCode;
-import com.example.dormitorybe.repository.BuyPostRepository;
 import com.example.dormitorybe.repository.SharePostRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -36,7 +33,7 @@ public class SharePostService {
 
         SharePost sharePost = sharePostRepository.findById(sharePostId)
                 .orElseThrow(
-                        () -> new CustomException(ErrorCode.NotFoundPost)
+                        () -> new CustomException(ErrorCode.NOT_FOUND_POST)
                 );
 
         sharePost.updateSharePost(sharePostReqDto);
@@ -48,7 +45,7 @@ public class SharePostService {
 
         SharePost sharePost = sharePostRepository.findById(sharePostId)
                 .orElseThrow(
-                        () -> new CustomException(ErrorCode.NotFoundPost)
+                        () -> new CustomException(ErrorCode.NOT_FOUND_POST)
                 );
 
         sharePostRepository.deleteById(sharePostId);
