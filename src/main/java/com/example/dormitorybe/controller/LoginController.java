@@ -1,6 +1,7 @@
 package com.example.dormitorybe.controller;
 
-import com.example.dormitorybe.dto.ReqDto.MemberReqDto;
+import com.example.dormitorybe.dto.ReqDto.LoginReqDto;
+import com.example.dormitorybe.dto.ReqDto.SignUpReqDto;
 import com.example.dormitorybe.dto.ResDto.GlobalResDto;
 import com.example.dormitorybe.service.LoginService;
 import lombok.RequiredArgsConstructor;
@@ -14,14 +15,14 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping("/signup")
-    public GlobalResDto<?> SignUp(@RequestBody MemberReqDto memberReqDto) {
+    public GlobalResDto<?> SignUp(@RequestBody SignUpReqDto signUpReqDto) {
 
-        return loginService.signUp(memberReqDto);
+        return loginService.signUp(signUpReqDto);
     }
 
     @PostMapping("/login")
-    public GlobalResDto<?> Login(@RequestBody MemberReqDto memberReqDto) {
+    public GlobalResDto<?> Login(@RequestBody LoginReqDto loginReqDto) {
 
-        return loginService.login(memberReqDto);
+        return loginService.login(loginReqDto);
     }
 }

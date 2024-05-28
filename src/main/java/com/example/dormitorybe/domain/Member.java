@@ -1,6 +1,6 @@
 package com.example.dormitorybe.domain;
 
-import com.example.dormitorybe.dto.ReqDto.MemberReqDto;
+import com.example.dormitorybe.dto.ReqDto.SignUpReqDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,12 +27,12 @@ public class Member {
     @Column(nullable = false)
     private int roomNum;
 
-    public Member(MemberReqDto memberReqDto) {
-        this.studentNum = memberReqDto.getStudentNum();
-        this.pw = memberReqDto.getPw();
-        this.name = memberReqDto.getName();
-        this.grade = memberReqDto.getGrade();
-        this.hall = memberReqDto.getHall();
-        this.roomNum = memberReqDto.getRoomNum();
+    public Member(SignUpReqDto signUpReqDto) {
+        this.studentNum = signUpReqDto.getStudentNum();
+        this.pw = signUpReqDto.getPw();
+        this.name = signUpReqDto.getName();
+        this.grade = signUpReqDto.getGrade();
+        this.hall = signUpReqDto.getHall();
+        this.roomNum = signUpReqDto.getRoomNum();
     }
 }
