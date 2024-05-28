@@ -31,4 +31,10 @@ public class BuyPostController {
 
         return buyPostService.deleteBuyPost(buyPostId);
     }
+
+    @GetMapping("/buy-posts/allposts")
+    public GlobalResDto<?> getAllBuyPost(){
+
+        return buyPostService.getAllBuyPost();
+    }
 }

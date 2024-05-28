@@ -18,7 +18,10 @@ public class BuyPostReqDto {
     String category;
 
     @Column(nullable = false)
-    String endtime;
+    String endDay;
+
+    @Column(nullable = false)
+    String endTime;
 
     @Column(nullable = false)
     int counts;

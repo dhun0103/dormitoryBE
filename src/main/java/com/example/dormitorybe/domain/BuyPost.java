@@ -18,7 +18,9 @@ public class BuyPost {
     @Column(nullable = false)
     String category;
     @Column(nullable = false)
-    String endtime;
+    String endDay;
+    @Column(nullable = false)
+    String endTime;
     @Column(nullable = false)
     int counts;
     @Column(nullable = false)
@@ -29,7 +31,8 @@ public class BuyPost {
     public BuyPost(BuyPostReqDto buyPostReqDto){
         this.title = buyPostReqDto.getTitle();
         this.category = buyPostReqDto.getCategory();
-        this.endtime = buyPostReqDto.getEndtime();
+        this.endDay = buyPostReqDto.getEndDay();
+        this.endTime = buyPostReqDto.getEndTime();
         this.counts = buyPostReqDto.getCounts();
         this.price = buyPostReqDto.getPrice();
         this.link = buyPostReqDto.getLink();
@@ -38,7 +41,8 @@ public class BuyPost {
     public void updateBuyPost(BuyPostReqDto buyPostReqDto){
         this.title = buyPostReqDto.getTitle();
         this.category = buyPostReqDto.getCategory();
-        this.endtime = buyPostReqDto.getEndtime();
+        this.endDay = buyPostReqDto.getEndDay();
+        this.endTime = buyPostReqDto.getEndTime();
         this.counts = buyPostReqDto.getCounts();
         this.price = buyPostReqDto.getPrice();
         this.link = buyPostReqDto.getLink();
