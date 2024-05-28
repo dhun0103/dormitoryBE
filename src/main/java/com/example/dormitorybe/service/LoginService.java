@@ -2,8 +2,10 @@ package com.example.dormitorybe.service;
 
 import com.example.dormitorybe.domain.Member;
 import com.example.dormitorybe.dto.ReqDto.LoginReqDto;
+import com.example.dormitorybe.dto.ReqDto.ProfileReqDto;
 import com.example.dormitorybe.dto.ReqDto.SignUpReqDto;
 import com.example.dormitorybe.dto.ResDto.GlobalResDto;
+import com.example.dormitorybe.dto.ResDto.ProfileResDto;
 import com.example.dormitorybe.exception.CustomException;
 import com.example.dormitorybe.exception.ErrorCode;
 import com.example.dormitorybe.repository.MemberRepository;
@@ -18,6 +20,10 @@ public class LoginService {
 
     @Transactional
     public GlobalResDto<?> signUp(SignUpReqDto signUpReqDto) {
+
+        if(memberRepository.findByStudentNum(signUpReqDto.getStudentNum()).isPresent()) {
+            throw new CustomException(ErrorCode.ALREADY_HAVE_ID);
+        }
 
         Member member = new Member(signUpReqDto);
         memberRepository.save(member);
@@ -38,5 +44,17 @@ public class LoginService {
         }
 
         return GlobalResDto.success(null, "success login");
+    }
+
+    public GlobalResDto<?> profile(ProfileReqDto profileReqDto) {
+
+        Member member = memberRepository.findByStudentNum(profileReqDto.getStudentNum())
+                .orElseThrow(
+                        () -> new CustomException(ErrorCode.NOT_FOUND_MEMBER)
+                );
+
+        ProfileResDto profileResDto = new ProfileResDto(member);
+
+        return GlobalResDto.success(profileResDto, "success profile");
     }
 }

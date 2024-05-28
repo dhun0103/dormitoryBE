@@ -1,6 +1,7 @@
 package com.example.dormitorybe.controller;
 
 import com.example.dormitorybe.dto.ReqDto.LoginReqDto;
+import com.example.dormitorybe.dto.ReqDto.ProfileReqDto;
 import com.example.dormitorybe.dto.ReqDto.SignUpReqDto;
 import com.example.dormitorybe.dto.ResDto.GlobalResDto;
 import com.example.dormitorybe.service.LoginService;
@@ -24,5 +25,11 @@ public class LoginController {
     public GlobalResDto<?> Login(@RequestBody LoginReqDto loginReqDto) {
 
         return loginService.login(loginReqDto);
+    }
+
+    @GetMapping("/profile")
+    public GlobalResDto<?> Profile(@RequestBody ProfileReqDto profileReqDto) {
+
+        return loginService.profile(profileReqDto);
     }
 }
