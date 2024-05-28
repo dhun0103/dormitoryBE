@@ -1,17 +1,24 @@
 spring:
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:db
-    username: sa
-    password: password
-  h2:
-    console:
-      enabled: true
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:db
+#    username: sa
+#    password: password
+#  h2:
+#    console:
+#      enabled: true
 
   jpa:
     hibernate:
-      ddl-auto: create
-#      ddl-auto: update
+#      ddl-auto: create
+      ddl-auto: update
+
+  profiles:
+    inclue: secret
+
+  config:
+    import: classpath:application-secret.yml
+
 
 logging:
   level:
