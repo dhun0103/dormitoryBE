@@ -14,13 +14,13 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping("/signup")
-    public GlobalResDto<?> SignUp(@RequestBody MemberReqDto memberReqDto){
+    public GlobalResDto<?> SignUp(@RequestBody MemberReqDto memberReqDto) {
 
         return loginService.signUp(memberReqDto);
     }
 
     @PostMapping("/login")
-    public GlobalResDto<?> Login(@RequestBody MemberReqDto memberReqDto){
+    public GlobalResDto<?> Login(@RequestBody MemberReqDto memberReqDto) {
 
         return loginService.login(memberReqDto);
     }
