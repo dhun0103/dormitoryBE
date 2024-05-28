@@ -11,17 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProfileResDto {
 
-    @Column(nullable = false)
     private String studentNum;
-    @Column(nullable = false)
     private String pw;
-    @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
     private int grade;
-    @Column(nullable = false)
     private String hall;
-    @Column(nullable = false)
     private int roomNum;
 
     public ProfileResDto(Member member) {

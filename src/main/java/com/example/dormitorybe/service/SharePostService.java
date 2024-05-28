@@ -52,6 +52,4 @@ public class SharePostService {
 
         return GlobalResDto.success(null, "success delete sharePost");
     }
-
-
 }
