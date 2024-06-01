@@ -18,12 +18,15 @@ public class NoticePost {
     String date;
     @Column(nullable = false)
     String url;
+    @Column(nullable = false)
+    int noticeType;
 
 
     public NoticePost(NoticePostReqDto noticePostReqDto) {
         this.title = noticePostReqDto.getTitle();
         this.date = noticePostReqDto.getDate();
         this.url = noticePostReqDto.getUrl();
+        int noticeType =noticePostReqDto.getNoticeType();
 
 
     }

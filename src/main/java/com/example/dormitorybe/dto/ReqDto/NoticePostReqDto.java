@@ -20,5 +20,7 @@ public class NoticePostReqDto {
     String date;
     @Column(nullable = false)
     String url;
+    @Column(nullable = false)
+    int noticeType;
 
 }
