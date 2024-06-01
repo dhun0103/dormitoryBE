@@ -71,21 +71,6 @@ public class SeleniumController {
 
             driver.get(URL);
 
-//            String totPage = driver.findElement(By.cssSelector("div._fnctWrap > form:nth-child(3) > div > div > p > span._totPage")).getText();
-//            int totalPages = Integer.parseInt(totPage);
-//            WebElement pageDataAttr = driver.findElement(By.cssSelector("#menu2238_obj1168 > div._fnctWrap > form:nth-child(3) > div > div > p > span._totPage"));
-//            System.out.println("######{"+pageDataAttr.getText()+"}#######");
-//           //int totalPages = Integer.parseInt(pageDataAttr);
-            //int totalPages = 0;
-//            String totalPagesText = driver.findElement(By.cssSelector("#menu2238_obj1168 > div._fnctWrap > form:nth-child(3) > div > div > p > span._totPage")).getText();
-//            int totalPages = Integer.parseInt(totalPagesText);
-//            System.out.println("?"+totalPages);
-
-            //for(int i=0; i<totalPages; i++){
-
-//            String pageUrl = URL + "?currentPageNo=" + i;
-//            driver.get(pageUrl);
-
             List<WebElement> contents = driver.findElements(By.cssSelector("div._fnctWrap > form:nth-child(2) > div > table > tbody > tr"));
 
             if (contents.size() > 0) { //데이터 있으면
@@ -104,11 +89,6 @@ public class SeleniumController {
 
                 }
             }
-
-
-        //}
-
-
 
             driver.quit();
             System.out.println("####END####");
