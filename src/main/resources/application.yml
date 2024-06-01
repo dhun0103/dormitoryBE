@@ -23,3 +23,6 @@ spring:
 logging:
   level:
     com.example.log : error
+
+url:
+  notice: https://www.konkuk.ac.kr/konkuk/2238/subview.do
