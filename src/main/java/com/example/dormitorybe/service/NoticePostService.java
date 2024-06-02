@@ -55,9 +55,16 @@ public class NoticePostService {
         System.out.println("###START###");
 
         try {
-            //TODO(path local로 안하는 거 따로 확인)
-            Path path = Paths.get("H:\\spring\\dormitoryBE\\chromedriver.exe");
-            System.setProperty("webdriver.chrome.driver", path.toString());
+//            Path path = Paths.get("H:\\spring\\dormitoryBE\\chromedriver.exe");
+//            System.setProperty("webdriver.chrome.driver", path.toString());
+                
+            //choromedriver.exe dormitoryBE 밑의 directory에
+            String currentDir = System.getProperty("user.dir");
+            String driverPath = currentDir + "\\chromedriver.exe";
+            System.out.println(driverPath);
+
+            // 드라이버 경로 설정
+            System.setProperty("webdriver.chrome.driver", driverPath);
 
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--disable-popup-blocking");   // 팝업 안띄움
