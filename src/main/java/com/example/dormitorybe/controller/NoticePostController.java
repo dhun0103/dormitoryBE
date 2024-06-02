@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -30,11 +31,10 @@ public class NoticePostController {
     }
 
     @GetMapping("/notices/school")
-    public GlobalResDto<?> getSchool(){
+    public GlobalResDto<?> getSchool() {
         return noticePostService.crawlNoticePost("https://www.konkuk.ac.kr/konkuk/2238/subview.do", 0);
 
     }
-
     @GetMapping("/notices/scholarship")
     public GlobalResDto<?> getScholarships(){
 
@@ -59,8 +59,6 @@ public class NoticePostController {
         return noticePostService.crawlNoticePost("https://www.konkuk.ac.kr/konkuk/2242/subview.do", 4);
 
     }
-
-
 
 
 

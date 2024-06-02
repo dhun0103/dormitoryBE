@@ -1,12 +1,8 @@
 package com.example.dormitorybe.service;
 
-import com.example.dormitorybe.domain.MatePost;
-import com.example.dormitorybe.domain.Member;
 import com.example.dormitorybe.domain.NoticePost;
 import com.example.dormitorybe.dto.ResDto.GlobalResDto;
 import com.example.dormitorybe.dto.ReqDto.NoticePostReqDto;
-import com.example.dormitorybe.exception.CustomException;
-import com.example.dormitorybe.exception.ErrorCode;
 import com.example.dormitorybe.repository.NoticePostRepository;
 import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.By;
@@ -17,11 +13,13 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -47,7 +45,10 @@ public class NoticePostService {
         return GlobalResDto.success(null, "success create noticePost");
     }
 
-    public GlobalResDto<?> crawlNoticePost(String URL, int noticeType) {
+    public GlobalResDto<?> crawlNoticePost(String pageURL, int noticeType) {
+
+        //URL decoding
+
 
         List<NoticePostReqDto> noticePostReqDtos = new ArrayList<>();
 
@@ -71,21 +72,42 @@ public class NoticePostService {
 //            List<String> tabs = new ArrayList<String>(driver.getWindowHandles()); //탭목록 가져오기
 //            driver.switchTo().window(tabs.get(0)); //첫번쨰 탭으로 전환
 
-            driver.get(URL);
-
-            List<WebElement> contents = driver.findElements(By.cssSelector("div._fnctWrap > form:nth-child(2) > div > table > tbody > tr"));
-
-            if (contents.size() > 0) {
-                for (WebElement content : contents) {
-                    String title = content.findElement(By.cssSelector("td.td-subject > a > strong")).getText();
-
-                    String date = content.findElement(By.cssSelector("td.td-date")).getText();
-                    String url = content.findElement(By.cssSelector("td.td-subject > a")).getAttribute("href");
-
-                    NoticePostReqDto noticePostReqDto = new NoticePostReqDto(title, date, url, noticeType);
-                    noticePostReqDtos.add(noticePostReqDto);
+            //페이지 갯수
+            driver.get(pageURL);
+            WebElement totlapage = driver.findElement(By.cssSelector("div._fnctWrap > form:nth-child(3) > div > div > a._last"));
+            System.out.println(totlapage);
+            System.out.println(totlapage.getAttribute("href"));
+            String linkText = totlapage.getAttribute("href");
+            int pageNumber = Integer.parseInt(linkText.replaceAll("\\D+", ""));
+            System.out.println(pageNumber);
 
 
+            for(int page=1; page<=pageNumber; page++) {
+                String urlcode = "?page="+page+"&isViewMine=false";
+                String URL = pageURL+urlcode;
+                System.out.println(URL);
+                driver.get(URL);
+
+//            WebElement paginationElement = driver.findElement(By.cssSelector("div.paging > span.total"));
+//            String totalPagesText = paginationElement.getText();
+//            int totalPages = Integer.parseInt(totalPagesText.replaceAll("[^0-9]", ""));
+//            System.out.println("{"+totalPagesText);
+
+
+                List<WebElement> contents = driver.findElements(By.cssSelector("div._fnctWrap > form:nth-child(2) > div > table > tbody > tr"));
+
+                if (contents.size() > 0) {
+                    for (WebElement content : contents) {
+                        String title = content.findElement(By.cssSelector("td.td-subject > a > strong")).getText();
+
+                        String date = content.findElement(By.cssSelector("td.td-date")).getText();
+                        String url = content.findElement(By.cssSelector("td.td-subject > a")).getAttribute("href");
+
+                        NoticePostReqDto noticePostReqDto = new NoticePostReqDto(title, date, url, noticeType);
+                        noticePostReqDtos.add(noticePostReqDto);
+
+
+                    }
                 }
             }
 
@@ -101,6 +123,21 @@ public class NoticePostService {
             return GlobalResDto.fail("Failed to create noticePost");
         }
 
+    }
+
+    private static String generatePageURL(String decodedURL, int pageNumber) {
+        String[] parts = decodedURL.split("\\?");
+        String baseURL = parts[0];
+        String queryParams = parts[1];
+
+        String pageParam = "page=" + pageNumber;
+        if (queryParams.contains("page=")) {
+            queryParams = queryParams.replaceAll("page=\\d+", pageParam);
+        } else {
+            queryParams += "&" + pageParam;
+        }
+
+        return baseURL + "?" + queryParams;
     }
 
 
