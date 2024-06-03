@@ -17,10 +17,11 @@ public class NoticePostReqDto {
     @Column(nullable = false)
     String title;
     @Column(nullable = false)
+    String writer;
+    @Column(nullable = false)
     String date;
     @Column(nullable = false)
-    String url;
+    String visits;
     @Column(nullable = false)
-    int noticeType;
-
+    String url;
 }

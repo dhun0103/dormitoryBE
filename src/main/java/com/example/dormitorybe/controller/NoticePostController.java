@@ -30,7 +30,11 @@ public class NoticePostController {
         this.noticePostService = noticePostService;
     }
 
-    @GetMapping("/notices/school")
+    @GetMapping("/notices")
+    public GlobalResDto getNotice(){
+        return noticePostService.crawlNoticePost();
+    }
+/*    @GetMapping("/notices/school")
     public GlobalResDto<?> getSchool() {
         return noticePostService.crawlNoticePost("https://www.konkuk.ac.kr/konkuk/2238/subview.do", 0);
 
@@ -58,7 +62,7 @@ public class NoticePostController {
 
         return noticePostService.crawlNoticePost("https://www.konkuk.ac.kr/konkuk/2242/subview.do", 4);
 
-    }
+    }*/
 
 
 

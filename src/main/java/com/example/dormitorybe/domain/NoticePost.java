@@ -15,18 +15,21 @@ public class NoticePost {
     @Column(nullable = false)
     String title;
     @Column(nullable = false)
+    String writer;
+    @Column(nullable = false)
     String date;
     @Column(nullable = false)
-    String url;
+    String visits;
     @Column(nullable = false)
-    int noticeType;
+    String url;
 
 
     public NoticePost(NoticePostReqDto noticePostReqDto) {
         this.title = noticePostReqDto.getTitle();
+        this.writer = noticePostReqDto.getWriter();
         this.date = noticePostReqDto.getDate();
+        this.visits = noticePostReqDto.getVisits();
         this.url = noticePostReqDto.getUrl();
-        int noticeType =noticePostReqDto.getNoticeType();
 
 
     }
