@@ -30,10 +30,24 @@ public class NoticePostController {
         this.noticePostService = noticePostService;
     }
 
-    @GetMapping("/notices")
-    public GlobalResDto getNotice(){
-        return noticePostService.crawlNoticePost();
+    @GetMapping("/notices/kulhouse_notice")
+    public GlobalResDto getKulhouse_notice(){
+        return noticePostService.crawlNoticePost("https://kulhouse.konkuk.ac.kr/home/sub04/sub04_01.asp" +
+                "?intNowPage=1&board_nm=kulhouse_notice&search_m=&search_t=&intNoticeCnt=27");
     }
+    @GetMapping("/notice/serveone_notice")
+    public GlobalResDto getServeone_notice(){
+        return noticePostService.crawlNoticePost("https://kulhouse.konkuk.ac.kr/home/sub04/sub05_07.asp" +
+                "?intNowPage=1&board_nm=serveone_notice&search_m=&search_t=&intNoticeCnt=2");
+    }
+    @GetMapping("/notice/ourhome_notice")
+    public GlobalResDto getOurhome_notice(){
+        return noticePostService.crawlNoticePost("https://kulhouse.konkuk.ac.kr/home/sub04/sub05_05.asp" +
+                "?intNowPage=1&board_nm=ourhome_notice&search_m=&search_t=&intNoticeCnt=16");
+    }
+
+
+
 /*    @GetMapping("/notices/school")
     public GlobalResDto<?> getSchool() {
         return noticePostService.crawlNoticePost("https://www.konkuk.ac.kr/konkuk/2238/subview.do", 0);

@@ -45,7 +45,7 @@ public class NoticePostService {
         return GlobalResDto.success(null, "success create noticePost");
     }
 
-    public GlobalResDto<?> crawlNoticePost(){
+    public GlobalResDto<?> crawlNoticePost(String pageURL){
         List<NoticePostReqDto> noticePostReqDtos = new ArrayList<>();
 
         System.out.println("###START###");
@@ -67,14 +67,23 @@ public class NoticePostService {
             WebDriver driver = new ChromeDriver(options);
 
             //페이지 갯수
-            String pageURL = "https://kulhouse.konkuk.ac.kr/home/sub04/sub04_01.asp";
+            //https://kulhouse.konkuk.ac.kr/home/sub04/sub04_01.asp?intNowPage=1&board_nm=kulhouse_notice&search_m=&search_t=&intNoticeCnt=27
+            String[] urlparts = pageURL.split("\\?");
+            String[] urlelements = urlparts[1].split("&");
+            for(int i=0; i< urlparts.length; i++) System.out.println(urlparts[i]);
+            for(int i=0; i<urlelements.length; i++) System.out.println(urlelements[i]);
+            urlelements[0] = urlelements[0].substring(0, urlelements[0].indexOf("=")+1);
+            System.out.println(urlelements[0]);
+
+
+
             driver.get(pageURL);
             String pagestr = driver.findElement(By.cssSelector("#content > div > form > div.posRelative > div > a.btnNextLast")).getAttribute("href");
             int totalpage = Integer.parseInt(pagestr.substring(pagestr.indexOf("intNowPage=") + 11, pagestr.indexOf("&", pagestr.indexOf("intNowPage="))));
+            System.out.println(pagestr+"\n"+totalpage);
 
             for(int page=1; page<=totalpage; page++) {
-                String urlcode = "?intNowPage="+page+"&board_nm=kulhouse_notice&search_m=&search_t=&intNoticeCnt=27";
-                String URL = pageURL+urlcode;
+                String URL = urlparts[0]+"?"+urlelements[0]+page+"&"+urlelements[1]+"&"+urlelements[2]+"&"+urlelements[3]+"&"+urlelements[4];
                 System.out.println(URL);
                 driver.get(URL);
 
@@ -88,7 +97,10 @@ public class NoticePostService {
                         String visits = content.findElement(By.cssSelector("td:nth-child(5)")).getText();
                         String onclickurl = content.findElement(By.cssSelector("td:nth-child(2) > a")).getAttribute("onclick");
                         int pgnum = Integer.parseInt(onclickurl.substring(onclickurl.lastIndexOf("=") + 1, onclickurl.length() - 2));
-                        String url = "https://kulhouse.konkuk.ac.kr/home/sub04/sub04_01_v.asp?intNowPage=1&board_nm=kulhouse_notice&idx="+pgnum;
+
+
+                        String url = urlparts[0].replace(".asp", "_v.asp")+"?intNowPage="+page+"&"+urlelements[1]+"&idx="+pgnum;
+                        System.out.println(url);
 
                         NoticePostReqDto noticePostReqDto = new NoticePostReqDto(title, writer, date, visits, url);
                         noticePostReqDtos.add(noticePostReqDto);
