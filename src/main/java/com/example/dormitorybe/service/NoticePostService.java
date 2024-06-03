@@ -66,25 +66,18 @@ public class NoticePostService {
 
             WebDriver driver = new ChromeDriver(options);
 
-            //페이지 갯수
-            //https://kulhouse.konkuk.ac.kr/home/sub04/sub04_01.asp?intNowPage=1&board_nm=kulhouse_notice&search_m=&search_t=&intNoticeCnt=27
+            //url parsing
             String[] urlparts = pageURL.split("\\?");
             String[] urlelements = urlparts[1].split("&");
-            for(int i=0; i< urlparts.length; i++) System.out.println(urlparts[i]);
-            for(int i=0; i<urlelements.length; i++) System.out.println(urlelements[i]);
             urlelements[0] = urlelements[0].substring(0, urlelements[0].indexOf("=")+1);
-            System.out.println(urlelements[0]);
 
-
-
+            //total page
             driver.get(pageURL);
             String pagestr = driver.findElement(By.cssSelector("#content > div > form > div.posRelative > div > a.btnNextLast")).getAttribute("href");
             int totalpage = Integer.parseInt(pagestr.substring(pagestr.indexOf("intNowPage=") + 11, pagestr.indexOf("&", pagestr.indexOf("intNowPage="))));
-            System.out.println(pagestr+"\n"+totalpage);
 
             for(int page=1; page<=totalpage; page++) {
                 String URL = urlparts[0]+"?"+urlelements[0]+page+"&"+urlelements[1]+"&"+urlelements[2]+"&"+urlelements[3]+"&"+urlelements[4];
-                System.out.println(URL);
                 driver.get(URL);
 
                 List<WebElement> contents = driver.findElements(By.cssSelector("#content > div > form > table > tbody > tr"));
@@ -95,19 +88,16 @@ public class NoticePostService {
                         String writer = content.findElement(By.cssSelector("td:nth-child(3)")).getText();
                         String date = content.findElement(By.cssSelector("td:nth-child(4)")).getText();
                         String visits = content.findElement(By.cssSelector("td:nth-child(5)")).getText();
+                        //url parsing
                         String onclickurl = content.findElement(By.cssSelector("td:nth-child(2) > a")).getAttribute("onclick");
                         int pgnum = Integer.parseInt(onclickurl.substring(onclickurl.lastIndexOf("=") + 1, onclickurl.length() - 2));
-
-
                         String url = urlparts[0].replace(".asp", "_v.asp")+"?intNowPage="+page+"&"+urlelements[1]+"&idx="+pgnum;
-                        System.out.println(url);
 
                         NoticePostReqDto noticePostReqDto = new NoticePostReqDto(title, writer, date, visits, url);
                         noticePostReqDtos.add(noticePostReqDto);
                     }
                 }
             }
-
             driver.quit();
             System.out.println("####END####");
 
@@ -119,102 +109,6 @@ public class NoticePostService {
             System.out.println(e);
             return GlobalResDto.fail("Failed to create noticePost");
         }
-
-
     }
-
-    /*
-    //public GlobalResDto<?> crawlNoticePost(String pageURL, int noticeType) {
-    public GlobalResDto<?> crawlNoticePost(String pageURL){
-
-        List<NoticePostReqDto> noticePostReqDtos = new ArrayList<>();
-
-        System.out.println("###START###");
-
-        try {
-            String currentDir = System.getProperty("user.dir");
-            String driverPath = currentDir + "\\chromedriver.exe";
-            System.out.println(driverPath);
-
-            // 드라이버 경로 설정
-            System.setProperty("webdriver.chrome.driver", driverPath);
-
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("--disable-popup-blocking");   // 팝업 안띄움
-            options.addArguments("headless");   // 웹페이지(브라우저) 안 띄움
-            options.addArguments("--disable-gpu");  // gpu 비활성화
-            options.addArguments("--blink-settings=imagesEnabled=false");   // 이미지 다운 안받음
-
-            WebDriver driver = new ChromeDriver(options);
-
-
-            //페이지 갯수
-            driver.get(pageURL);
-            WebElement totlapage = driver.findElement(By.cssSelector("div._fnctWrap > form:nth-child(3) > div > div > a._last"));
-            System.out.println(totlapage);
-            System.out.println(totlapage.getAttribute("href"));
-            String linkText = totlapage.getAttribute("href");
-            int pageNumber = Integer.parseInt(linkText.replaceAll("\\D+", ""));
-            System.out.println(pageNumber);
-
-
-            for(int page=1; page<=pageNumber; page++) {
-                String urlcode = "?page="+page+"&isViewMine=false";
-                String URL = pageURL+urlcode;
-                System.out.println(URL);
-                driver.get(URL);
-
-//            WebElement paginationElement = driver.findElement(By.cssSelector("div.paging > span.total"));
-//            String totalPagesText = paginationElement.getText();
-//            int totalPages = Integer.parseInt(totalPagesText.replaceAll("[^0-9]", ""));
-//            System.out.println("{"+totalPagesText);
-
-
-                List<WebElement> contents = driver.findElements(By.cssSelector("div._fnctWrap > form:nth-child(2) > div > table > tbody > tr"));
-
-                if (contents.size() > 0) {
-                    for (WebElement content : contents) {
-                        String title = content.findElement(By.cssSelector("td.td-subject > a > strong")).getText();
-
-                        String date = content.findElement(By.cssSelector("td.td-date")).getText();
-                        String url = content.findElement(By.cssSelector("td.td-subject > a")).getAttribute("href");
-
-                        NoticePostReqDto noticePostReqDto = new NoticePostReqDto(title, date, url, noticeType);
-                        noticePostReqDtos.add(noticePostReqDto);
-
-
-                    }
-                }
-            }
-
-            driver.quit();
-            System.out.println("####END####");
-
-            createNoticePostsFromCrawling(noticePostReqDtos);
-            return GlobalResDto.success(noticePostReqDtos, "success create noticePost");
-
-        }catch(Exception e){
-            System.out.println("####crawling error####");
-            System.out.println(e);
-            return GlobalResDto.fail("Failed to create noticePost");
-        }
-
-    }
-
-    private static String generatePageURL(String decodedURL, int pageNumber) {
-        String[] parts = decodedURL.split("\\?");
-        String baseURL = parts[0];
-        String queryParams = parts[1];
-
-        String pageParam = "page=" + pageNumber;
-        if (queryParams.contains("page=")) {
-            queryParams = queryParams.replaceAll("page=\\d+", pageParam);
-        } else {
-            queryParams += "&" + pageParam;
-        }
-
-        return baseURL + "?" + queryParams;
-    }*/
-
 
 }
