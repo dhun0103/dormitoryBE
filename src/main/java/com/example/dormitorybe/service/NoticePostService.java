@@ -65,11 +65,14 @@ public class NoticePostService {
             options.addArguments("--blink-settings=imagesEnabled=false");   // 이미지 다운 안받음
 
             WebDriver driver = new ChromeDriver(options);
+
             //페이지 갯수
-
             String pageURL = "https://kulhouse.konkuk.ac.kr/home/sub04/sub04_01.asp";
+            driver.get(pageURL);
+            String pagestr = driver.findElement(By.cssSelector("#content > div > form > div.posRelative > div > a.btnNextLast")).getAttribute("href");
+            int totalpage = Integer.parseInt(pagestr.substring(pagestr.indexOf("intNowPage=") + 11, pagestr.indexOf("&", pagestr.indexOf("intNowPage="))));
 
-            for(int page=1; page<=4; page++) {
+            for(int page=1; page<=totalpage; page++) {
                 String urlcode = "?intNowPage="+page+"&board_nm=kulhouse_notice&search_m=&search_t=&intNoticeCnt=27";
                 String URL = pageURL+urlcode;
                 System.out.println(URL);
@@ -86,8 +89,6 @@ public class NoticePostService {
                         String onclickurl = content.findElement(By.cssSelector("td:nth-child(2) > a")).getAttribute("onclick");
                         int pgnum = Integer.parseInt(onclickurl.substring(onclickurl.lastIndexOf("=") + 1, onclickurl.length() - 2));
                         String url = "https://kulhouse.konkuk.ac.kr/home/sub04/sub04_01_v.asp?intNowPage=1&board_nm=kulhouse_notice&idx="+pgnum;
-
-                        System.out.println(title+"\n"+writer+"\n"+date+"\n"+visits+"\n"+pgnum+"\n"+url+"\n");
 
                         NoticePostReqDto noticePostReqDto = new NoticePostReqDto(title, writer, date, visits, url);
                         noticePostReqDtos.add(noticePostReqDto);
