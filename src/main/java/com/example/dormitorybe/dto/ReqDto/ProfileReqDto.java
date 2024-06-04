@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class ProfileReqDto {
 
     @Column(nullable = false)
-    private String studentNum;
+    private String email;
 }

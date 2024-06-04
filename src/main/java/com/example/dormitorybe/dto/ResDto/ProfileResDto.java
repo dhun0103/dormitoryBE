@@ -11,16 +11,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProfileResDto {
 
-    private String studentNum;
-    private String pw;
+    private String email;
     private String name;
     private int grade;
     private String hall;
     private int roomNum;
 
     public ProfileResDto(Member member) {
-        this.studentNum = member.getStudentNum();
-        this.pw = member.getPw();
+        this.email = member.getEmail();
         this.name = member.getName();
         this.grade = member.getGrade();
         this.hall = member.getHall();

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class LoginReqDto {
 
     @Column(nullable = false)
-    private String studentNum;
+    private String email;
     @Column(nullable = false)
     private String pw;
 }

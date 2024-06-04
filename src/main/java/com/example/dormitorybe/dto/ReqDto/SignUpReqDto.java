@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class SignUpReqDto {
 
     @Column(nullable = false)
-    private String studentNum;
+    private String email;
     @Column(nullable = false)
     private String pw;
     @Column(nullable = false)
@@ -22,4 +22,9 @@ public class SignUpReqDto {
     private String hall;
     @Column(nullable = false)
     private int roomNum;
+
+    public void setEncodePwd(String encodePwd) {
+
+        this.pw = encodePwd;
+    }
 }

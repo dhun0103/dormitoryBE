@@ -17,10 +17,11 @@ public class MatePostResDto {
     private String gender;
 //    private String grade;
 
-    public MatePostResDto(MatePost matePost){
-        this.matePostId=matePost.getMatePostId();
-        this.title=matePost.getTitle();
-        this.age=matePost.getAge();
-        this.gender=matePost.getGender();
+    public MatePostResDto(MatePost matePost) {
+        this.matePostId = matePost.getMatePostId();
+        this.title = matePost.getTitle();
+        this.contents = matePost.getContents();
+        this.age = matePost.getAge();
+        this.gender = matePost.getGender();
     }
 }

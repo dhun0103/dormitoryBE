@@ -15,7 +15,7 @@ public class Member {
     private Long memberId;
 
     @Column(nullable = false)
-    private String studentNum;
+    private String email;
     @Column(nullable = false)
     private String pw;
     @Column(nullable = false)
@@ -28,7 +28,7 @@ public class Member {
     private int roomNum;
 
     public Member(SignUpReqDto signUpReqDto) {
-        this.studentNum = signUpReqDto.getStudentNum();
+        this.email = signUpReqDto.getEmail();
         this.pw = signUpReqDto.getPw();
         this.name = signUpReqDto.getName();
         this.grade = signUpReqDto.getGrade();
