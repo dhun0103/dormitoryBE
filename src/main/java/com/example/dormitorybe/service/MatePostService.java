@@ -1,5 +1,6 @@
 package com.example.dormitorybe.service;
 
+import com.example.dormitorybe.config.UserDetailsImpl;
 import com.example.dormitorybe.domain.MatePost;
 import com.example.dormitorybe.dto.ReqDto.MatePostReqDto;
 import com.example.dormitorybe.dto.ResDto.GlobalResDto;
@@ -23,17 +24,15 @@ public class MatePostService {
     private final Logger logger = LoggerFactory.getLogger(MatePostService.class);
 
     @Transactional
-    public GlobalResDto<?> createMatePost(MatePostReqDto matePostReqDto) {
+    public GlobalResDto<?> createMatePost(MatePostReqDto matePostReqDto, UserDetailsImpl userDetails) {
 
-        try {
-            MatePost matePost = new MatePost(matePostReqDto);
-            matePostRepository.save(matePost);
 
-            return GlobalResDto.success(null, "success create matePost");
-        } catch (Exception e) {
-            logger.error("Failed to create MatePost", e);
-            return GlobalResDto.fail("Failed to create MatePost");
-        }
+
+        MatePost matePost = new MatePost(matePostReqDto, userDetails.getMember());
+        matePostRepository.save(matePost);
+
+        return GlobalResDto.success(null, "success create matePost");
+
     }
 
     public GlobalResDto<?> updateMatePost(MatePostReqDto matePostReqDto, Long matePostId) {

@@ -49,7 +49,11 @@ public class MatePost {
     @Column(nullable = false)
     int killBug;
 
-    public MatePost(MatePostReqDto matePostReqDto){
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "memberId")
+    private Member member;
+
+    public MatePost(MatePostReqDto matePostReqDto, Member member){
         this.title=matePostReqDto.getTitle();
         this.contents = matePostReqDto.getContents();
         this.gender = matePostReqDto.getGender();
@@ -68,6 +72,7 @@ public class MatePost {
         this.homeProtector = matePostReqDto.getHomeProtector();
         this.cleaning = matePostReqDto.getCleaning();
         this.killBug = matePostReqDto.getKillBug();
+        this.member = member;
     }
 
     public void updateMatePost(MatePostReqDto matePostReqDto){

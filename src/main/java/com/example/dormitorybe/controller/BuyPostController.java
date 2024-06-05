@@ -1,10 +1,12 @@
 package com.example.dormitorybe.controller;
 
+import com.example.dormitorybe.config.UserDetailsImpl;
 import com.example.dormitorybe.dto.ReqDto.BuyPostReqDto;
 import com.example.dormitorybe.dto.ReqDto.MatePostReqDto;
 import com.example.dormitorybe.dto.ResDto.GlobalResDto;
 import com.example.dormitorybe.service.BuyPostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,9 +16,9 @@ public class BuyPostController {
     private final BuyPostService buyPostService;
 
     @PostMapping("/buy-posts")
-    public GlobalResDto<?> createBuyPost(@RequestBody BuyPostReqDto buyPostReqDto){
+    public GlobalResDto<?> createBuyPost(@RequestBody BuyPostReqDto buyPostReqDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
 
-        return buyPostService.createBuyPost(buyPostReqDto);
+        return buyPostService.createBuyPost(buyPostReqDto, userDetails);
     }
 
     @PutMapping("/buy-posts/{buyPostId}")
