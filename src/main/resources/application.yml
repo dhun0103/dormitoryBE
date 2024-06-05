@@ -10,8 +10,8 @@ spring:
 
   jpa:
     hibernate:
-#      ddl-auto: create
-      ddl-auto: validate
+      ddl-auto: create
+#      ddl-auto: validate
 
   profiles:
     inclue: secret
