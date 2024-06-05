@@ -4,6 +4,7 @@ import com.example.dormitorybe.domain.NoticePost;
 import com.example.dormitorybe.dto.ResDto.GlobalResDto;
 import com.example.dormitorybe.dto.ReqDto.NoticePostReqDto;
 import com.example.dormitorybe.repository.NoticePostRepository;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -40,12 +41,18 @@ public class NoticePostService {
         return GlobalResDto.success(null, "success create noticePost");
     }
 
-    public GlobalResDto<?> getLatestThreeNoticePosts() {
+    @PostConstruct
+    void init(){
         crawlNoticePost("https://kulhouse.konkuk.ac.kr/home/sub04/sub04_01.asp" +
                 "?intNowPage=1&board_nm=kulhouse_notice&search_m=&search_t=&intNoticeCnt=27");
+    }
+
+    public GlobalResDto<?> getLatestThreeNoticePosts() {
+
         List<NoticePost> noticePosts = noticePostRepository.findLatestThreeNoticePosts();
         return GlobalResDto.success(noticePosts, "success get latest 3 notice posts");
     }
+
 
 
 

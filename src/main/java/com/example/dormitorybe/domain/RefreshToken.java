@@ -26,4 +26,5 @@ public class RefreshToken {
         this.refreshToken = token;
         return this;
     }
+
 }
