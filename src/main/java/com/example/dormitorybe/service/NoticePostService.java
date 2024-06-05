@@ -13,12 +13,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +39,15 @@ public class NoticePostService {
         noticePostRepository.saveAll(noticePosts);
         return GlobalResDto.success(null, "success create noticePost");
     }
+
+    public GlobalResDto<?> getLatestThreeNoticePosts() {
+        crawlNoticePost("https://kulhouse.konkuk.ac.kr/home/sub04/sub04_01.asp" +
+                "?intNowPage=1&board_nm=kulhouse_notice&search_m=&search_t=&intNoticeCnt=27");
+        List<NoticePost> noticePosts = noticePostRepository.findLatestThreeNoticePosts();
+        return GlobalResDto.success(noticePosts, "success get latest 3 notice posts");
+    }
+
+
 
     public GlobalResDto<?> crawlNoticePost(String pageURL){
         List<NoticePostReqDto> noticePostReqDtos = new ArrayList<>();
@@ -110,5 +114,6 @@ public class NoticePostService {
             return GlobalResDto.fail("Failed to create noticePost");
         }
     }
+
 
 }

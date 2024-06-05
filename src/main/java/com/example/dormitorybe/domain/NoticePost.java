@@ -4,9 +4,11 @@ import com.example.dormitorybe.dto.ReqDto.NoticePostReqDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class NoticePost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,4 +35,5 @@ public class NoticePost {
 
 
     }
+
 }
