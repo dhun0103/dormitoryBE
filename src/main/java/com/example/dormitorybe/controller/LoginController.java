@@ -35,4 +35,9 @@ public class LoginController {
 
         return loginService.profile(userDetails);
     }
+
+    @PostMapping ("/logout")
+    public GlobalResDto<?> logout(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return loginService.logout(userDetails);
+    }
 }

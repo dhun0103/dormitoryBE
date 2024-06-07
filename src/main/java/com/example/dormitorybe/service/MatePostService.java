@@ -35,6 +35,7 @@ public class MatePostService {
 
     }
 
+    @Transactional
     public GlobalResDto<?> updateMatePost(MatePostReqDto matePostReqDto, Long matePostId) {
 
         MatePost matePost = matePostRepository.findById(matePostId)
@@ -47,6 +48,7 @@ public class MatePostService {
         return GlobalResDto.success(null, "success update matePost");
     }
 
+    @Transactional
     public GlobalResDto<?> deleteMatePost(Long matePostId) {
 
         MatePost matePost = matePostRepository.findById(matePostId)
@@ -59,6 +61,7 @@ public class MatePostService {
         return GlobalResDto.success(null, "success delete matePost");
     }
 
+    @Transactional
     public GlobalResDto<?> getAllMatePost() {
 
         List<MatePost> matePostList = matePostRepository.findAll();
@@ -70,6 +73,7 @@ public class MatePostService {
         return GlobalResDto.success(matePostResDtoList, "success check matePosts");
     }
 
+    @Transactional
     public GlobalResDto<?> getMatePost(Long matePostId) {
 
         MatePost matePost = matePostRepository.findById(matePostId)

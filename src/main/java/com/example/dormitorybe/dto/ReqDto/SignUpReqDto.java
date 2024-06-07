@@ -21,7 +21,7 @@ public class SignUpReqDto {
     @Column(nullable = false)
     private String hall;
     @Column(nullable = false)
-    private int roomNum;
+    private String roomNum;
 
     public void setEncodePwd(String encodePwd) {
 

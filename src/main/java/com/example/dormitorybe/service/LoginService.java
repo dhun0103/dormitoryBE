@@ -16,12 +16,17 @@ import com.example.dormitorybe.repository.MemberRepository;
 import com.example.dormitorybe.repository.RefreshTokenRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class LoginService {
@@ -29,6 +34,7 @@ public class LoginService {
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final Logger logger = LoggerFactory.getLogger(LoginService.class);
 
     @Transactional
     public GlobalResDto<?> signUp(SignUpReqDto signUpReqDto) {
@@ -54,6 +60,8 @@ public class LoginService {
                         () -> new CustomException(ErrorCode.NOT_FOUND_MEMBER)
                 );
 
+        System.out.println("fefe");
+
         // 비밀번호 맞는지 확인
         if (!passwordEncoder.matches(loginReqDto.getPw(), member.getPw())) {
             throw new CustomException(ErrorCode.NOT_MATCH_PASSWORD);
@@ -78,6 +86,7 @@ public class LoginService {
         return GlobalResDto.success(null, "success login");
     }
 
+    @Transactional
     public GlobalResDto<?> profile(UserDetailsImpl userDetails) {
 
         Member member = userDetails.getMember();
@@ -95,7 +104,22 @@ public class LoginService {
     private void setHeader(HttpServletResponse response, TokenDto tokenDto) {
         response.addHeader(JwtUtil.ACCESS_TOKEN, tokenDto.getAccessToken());
         response.addHeader(JwtUtil.REFRESH_TOKEN, tokenDto.getRefreshToken());
+        log.info("Access_Token: " + tokenDto.getAccessToken());
+        log.info("Refresh_Token: " + tokenDto.getRefreshToken());
     }
 
+    @Transactional
+    public GlobalResDto<?> logout(UserDetailsImpl userDetails) {
 
+        try{
+
+            refreshTokenRepository.deleteAllByMemberEmail(userDetails.getMember().getEmail());
+            return GlobalResDto.success(null, "success logout");
+
+        }catch (Exception e) {
+            logger.error("Failed to logout", e);
+            return GlobalResDto.fail("Failed to logout");
+        }
+
+    }
 }

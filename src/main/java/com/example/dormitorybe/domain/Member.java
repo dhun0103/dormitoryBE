@@ -25,7 +25,7 @@ public class Member {
     @Column(nullable = false)
     private String hall;
     @Column(nullable = false)
-    private int roomNum;
+    private String roomNum;
 
     public Member(SignUpReqDto signUpReqDto) {
         this.email = signUpReqDto.getEmail();

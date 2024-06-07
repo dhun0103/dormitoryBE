@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,9 @@ public class NoticePostService {
 
     private final NoticePostRepository noticePostRepository;
 
+    @Value("${webdriver.chrome.driver}")
+    private String chromeDriverPath;
+
     @Transactional
     public GlobalResDto<?> createNoticePost(NoticePostReqDto noticePostReqDto) {
 
@@ -37,6 +41,7 @@ public class NoticePostService {
         return GlobalResDto.success(null, "success create noticePost");
     }
 
+    @Transactional
     public GlobalResDto<?> createNoticePostsFromCrawling(List<NoticePostReqDto> noticePostReqDtos) {
         List<NoticePost> noticePosts = noticePostReqDtos.stream()
                 .map(NoticePost::new)
@@ -45,18 +50,22 @@ public class NoticePostService {
         return GlobalResDto.success(null, "success create noticePost");
     }
 
+    @Transactional
     public GlobalResDto<?> crawlNoticePost(String pageURL){
         List<NoticePostReqDto> noticePostReqDtos = new ArrayList<>();
 
         System.out.println("###START###");
 
+        WebDriver driver = null;
         try {
-            String currentDir = System.getProperty("user.dir");
-            String driverPath = currentDir + "\\chromedriver.exe";
-            System.out.println(driverPath);
+            System.setProperty("webdriver.chrome.driver", Paths.get(chromeDriverPath).toString());
 
-            // 드라이버 경로 설정
-            System.setProperty("webdriver.chrome.driver", driverPath);
+//            String currentDir = System.getProperty("user.dir");
+//            String driverPath = currentDir + "\\chromedriver.exe";
+//            System.out.println(driverPath);
+//
+//            // 드라이버 경로 설정
+//            System.setProperty("webdriver.chrome.driver", driverPath);
 
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--disable-popup-blocking");   // 팝업 안띄움
@@ -64,7 +73,7 @@ public class NoticePostService {
             options.addArguments("--disable-gpu");  // gpu 비활성화
             options.addArguments("--blink-settings=imagesEnabled=false");   // 이미지 다운 안받음
 
-            WebDriver driver = new ChromeDriver(options);
+            driver = new ChromeDriver(options);
 
             //url parsing
             String[] urlparts = pageURL.split("\\?");

@@ -52,11 +52,13 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
         corsConfiguration.setAllowedOriginPatterns(Arrays.asList("http://localhost:5173", "http://localhost:3000", "http://3.16.162.147", "http://ec2-3-16-162-147.us-east-2.compute.amazonaws.com"));
-        corsConfiguration.setAllowedMethods(Arrays.asList("POST","GET","DELETE","PUT"));
-        corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        corsConfiguration.setAllowedMethods(Arrays.asList("POST","GET","DELETE","PUT","OPTIONS"));
+        corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Access_Token", "Refresh_Token"));
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setMaxAge(3600L);
         corsConfiguration.addExposedHeader("Custom-Header");
+//        corsConfiguration.addExposedHeader("Access_Token");
+//        corsConfiguration.addExposedHeader("Refresh_Token");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);

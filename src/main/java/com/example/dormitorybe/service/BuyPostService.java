@@ -60,6 +60,7 @@ public class BuyPostService {
         return GlobalResDto.success(null, "success delete buyPost");
     }
 
+    @Transactional
     public GlobalResDto<?> getAllBuyPost() {
         List<BuyPost> buyPostList = buyPostRepository.findAll();
 

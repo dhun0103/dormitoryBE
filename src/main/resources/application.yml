@@ -10,7 +10,8 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+#      ddl-auto: create
+      ddl-auto: update
 #      ddl-auto: validate
 
   profiles:
@@ -23,3 +24,7 @@ spring:
 logging:
   level:
     com.example.log : error
+
+webdriver:
+  chrome:
+    driver: /usr/local/bin/chromedriver

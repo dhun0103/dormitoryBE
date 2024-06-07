@@ -41,6 +41,7 @@ public class SharePostService {
         return GlobalResDto.success(null, "success update sharePost");
     }
 
+    @Transactional
     public GlobalResDto<?> deleteSharePost(Long sharePostId) {
 
         SharePost sharePost = sharePostRepository.findById(sharePostId)

@@ -15,7 +15,7 @@ public class ProfileResDto {
     private String name;
     private int grade;
     private String hall;
-    private int roomNum;
+    private String roomNum;
 
     public ProfileResDto(Member member) {
         this.email = member.getEmail();
