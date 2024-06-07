@@ -40,8 +40,7 @@ public class MealService {
                 .map(Meal::new)
                 .collect(Collectors.toList());
         mealRepository.saveAll(meals);
+
         return GlobalResDto.success(null, "success create multiple Meals");
     }
-
-
 }

@@ -60,8 +60,6 @@ public class LoginService {
                         () -> new CustomException(ErrorCode.NOT_FOUND_MEMBER)
                 );
 
-        System.out.println("fefe");
-
         // 비밀번호 맞는지 확인
         if (!passwordEncoder.matches(loginReqDto.getPw(), member.getPw())) {
             throw new CustomException(ErrorCode.NOT_MATCH_PASSWORD);

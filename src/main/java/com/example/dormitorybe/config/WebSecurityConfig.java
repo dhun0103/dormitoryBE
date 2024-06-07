@@ -56,9 +56,9 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Access_Token", "Refresh_Token"));
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setMaxAge(3600L);
-        corsConfiguration.addExposedHeader("Custom-Header");
-//        corsConfiguration.addExposedHeader("Access_Token");
-//        corsConfiguration.addExposedHeader("Refresh_Token");
+//        corsConfiguration.addExposedHeader("Custom-Header");
+        corsConfiguration.addExposedHeader("Access_Token");
+        corsConfiguration.addExposedHeader("Refresh_Token");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
