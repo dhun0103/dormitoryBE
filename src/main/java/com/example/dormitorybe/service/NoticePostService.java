@@ -4,6 +4,7 @@ import com.example.dormitorybe.domain.NoticePost;
 import com.example.dormitorybe.dto.ResDto.GlobalResDto;
 import com.example.dormitorybe.dto.ReqDto.NoticePostReqDto;
 import com.example.dormitorybe.repository.NoticePostRepository;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,12 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,6 +47,21 @@ public class NoticePostService {
     }
 
     @Transactional
+    @PostConstruct
+    void init(){
+        crawlNoticePost("https://kulhouse.konkuk.ac.kr/home/sub04/sub04_01.asp" +
+                "?intNowPage=1&board_nm=kulhouse_notice&search_m=&search_t=&intNoticeCnt=27");
+    }
+
+    public GlobalResDto<?> getLatestThreeNoticePosts() {
+
+        List<NoticePost> noticePosts = noticePostRepository.findLatestThreeNoticePosts();
+        return GlobalResDto.success(noticePosts, "success get latest 3 notice posts");
+    }
+
+
+
+
     public GlobalResDto<?> crawlNoticePost(String pageURL){
         List<NoticePostReqDto> noticePostReqDtos = new ArrayList<>();
 
@@ -119,5 +130,6 @@ public class NoticePostService {
             return GlobalResDto.fail("Failed to create noticePost");
         }
     }
+
 
 }
