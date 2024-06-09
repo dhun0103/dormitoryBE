@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -69,5 +70,31 @@ public class BuyPostService {
                 .collect(Collectors.toList());
 
         return GlobalResDto.success(buyPostResDtoList, "success check buyPosts");
+    }
+
+    @Transactional
+    public GlobalResDto<?> getBuyPost(Long buyPostId) {
+        BuyPost buyPost = buyPostRepository.findById(buyPostId)
+                .orElseThrow(
+                        () -> new CustomException(ErrorCode.NOT_FOUND_POST)
+                );
+
+        BuyPostResDto buyPostResDto = new BuyPostResDto(buyPost);
+
+
+        return GlobalResDto.success(buyPostResDto, "success check buyPost");
+    }
+
+    @Transactional
+    public GlobalResDto<?> applyBuyPost(Long buyPostId, UserDetailsImpl userDetails) {
+        BuyPost buyPost = buyPostRepository.findById(buyPostId)
+                .orElseThrow(
+                        () -> new CustomException(ErrorCode.NOT_FOUND_POST)
+                );
+        if(!userDetails.getMember().equals(buyPost.getMember())){
+            buyPost.updateBuyPostNum();
+        }
+
+        return GlobalResDto.success(null, "success apply buyPost");
     }
 }

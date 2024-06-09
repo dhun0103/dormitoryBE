@@ -21,6 +21,7 @@ public class BuyPostResDto {
     int counts;
     double price;
     String link;
+    int num;
 
     public BuyPostResDto(BuyPost buyPost){
         this.buyPostId=buyPost.getBuyPostId();
@@ -31,5 +32,6 @@ public class BuyPostResDto {
         this.counts=buyPost.getCounts();
         this.price=buyPost.getPrice();
         this.link=buyPost.getLink();
+        this.num=buyPost.getNum();
     }
 }

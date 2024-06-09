@@ -39,4 +39,16 @@ public class BuyPostController {
 
         return buyPostService.getAllBuyPost();
     }
+
+    @GetMapping("/buy-posts/{buyPostId}")
+    public GlobalResDto<?> getBuyPost(@PathVariable Long buyPostId){
+
+        return buyPostService.getBuyPost(buyPostId);
+    }
+
+    @PostMapping("/buy-posts/{buyPostId}")
+    public GlobalResDto<?> applyBuyPost(@PathVariable Long buyPostId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+
+        return buyPostService.applyBuyPost(buyPostId, userDetails);
+    }
 }
