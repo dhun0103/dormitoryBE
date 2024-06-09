@@ -28,11 +28,14 @@ public class BuyPost {
     @Column(nullable = false)
     String link;
 
+    @Column(nullable = false)
+    int num;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
     private Member member;
 
-    public BuyPost(BuyPostReqDto buyPostReqDto, Member member){
+    public BuyPost(BuyPostReqDto buyPostReqDto, Member member) {
         this.title = buyPostReqDto.getTitle();
         this.category = buyPostReqDto.getCategory();
         this.endDay = buyPostReqDto.getEndDay();
@@ -41,9 +44,10 @@ public class BuyPost {
         this.price = buyPostReqDto.getPrice();
         this.link = buyPostReqDto.getLink();
         this.member = member;
+        num = 1;
     }
 
-    public void updateBuyPost(BuyPostReqDto buyPostReqDto){
+    public void updateBuyPost(BuyPostReqDto buyPostReqDto) {
         this.title = buyPostReqDto.getTitle();
         this.category = buyPostReqDto.getCategory();
         this.endDay = buyPostReqDto.getEndDay();
@@ -51,6 +55,10 @@ public class BuyPost {
         this.counts = buyPostReqDto.getCounts();
         this.price = buyPostReqDto.getPrice();
         this.link = buyPostReqDto.getLink();
+    }
+
+    public void updateBuyPostNum() {
+        this.num += 1;
     }
 
 }
