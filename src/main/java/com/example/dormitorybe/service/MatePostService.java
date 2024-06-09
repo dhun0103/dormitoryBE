@@ -81,6 +81,8 @@ public class MatePostService {
                         () -> new CustomException(ErrorCode.NOT_FOUND_POST)
                 );
 
-        return GlobalResDto.success(matePost, "success check matePost");
+        MatePostResDto matePostResDto = new MatePostResDto(matePost);
+
+        return GlobalResDto.success(matePostResDto, "success check matePost");
     }
 }
