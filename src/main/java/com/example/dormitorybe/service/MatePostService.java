@@ -4,6 +4,7 @@ import com.example.dormitorybe.config.UserDetailsImpl;
 import com.example.dormitorybe.domain.MatePost;
 import com.example.dormitorybe.dto.ReqDto.MatePostReqDto;
 import com.example.dormitorybe.dto.ResDto.GlobalResDto;
+import com.example.dormitorybe.dto.ResDto.MatePostDetailDto;
 import com.example.dormitorybe.dto.ResDto.MatePostResDto;
 import com.example.dormitorybe.exception.CustomException;
 import com.example.dormitorybe.exception.ErrorCode;
@@ -81,8 +82,8 @@ public class MatePostService {
                         () -> new CustomException(ErrorCode.NOT_FOUND_POST)
                 );
 
-        MatePostResDto matePostResDto = new MatePostResDto(matePost);
+        MatePostDetailDto matePostDetailDto = new MatePostDetailDto(matePost);
 
-        return GlobalResDto.success(matePostResDto, "success check matePost");
+        return GlobalResDto.success(matePostDetailDto, "success check matePost");
     }
 }
