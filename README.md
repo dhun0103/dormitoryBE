@@ -34,10 +34,3 @@
 </div>
 <br/>
 <br/>
-
-## 📚 프로젝트 아키텍처
-<br/>
-
-<img width="484" alt="image" src="https://github.com/dhun0103/dormitoryBE/assets/112223836/4d7e3080-90b8-4e2e-b445-6fa68de0b09b">
-<br/>
-<br/>
